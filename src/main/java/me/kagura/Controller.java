@@ -6,8 +6,6 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 
-import java.io.UnsupportedEncodingException;
-
 public class Controller {
 
     @FXML
@@ -35,7 +33,7 @@ public class Controller {
                 } catch (Exception exx) {
                     exx.printStackTrace();
                 }
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 output.setText("发生异常：" + e.getLocalizedMessage());
             }
