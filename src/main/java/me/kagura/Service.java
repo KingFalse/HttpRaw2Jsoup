@@ -1,6 +1,5 @@
 package me.kagura;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,7 @@ public class Service {
     public static String generateCode = "";
     public String contentType = "";
 
-    public String doGenerate(String rawString) throws UnsupportedEncodingException {
+    public String doGenerate(String rawString) throws Exception {
         generateCode = "";
         //解析出请求方法
         String method = "";
@@ -43,11 +42,13 @@ public class Service {
         String[] headers = rawString.contains("\r\n") ? rawString.split("\r\n") : rawString.split("\n");
         Map<String, String> headersMap = new HashMap<>();
         String cookiesStr = "";
-        for (String header : headers) {
-            if (header.isEmpty()) {
+        String body = "";
+        for (int i = 0; i < headers.length; i++) {
+            String header = headers[i];
+            if (header.isEmpty() && i < headers.length - 1) {
+                body = headers[i + 1];
                 break;
             }
-
             pattern = Pattern.compile("([\\d\\D]+): ([\\d\\D]+)");
             matcher = pattern.matcher(header);
             matcher.find();
@@ -75,22 +76,22 @@ public class Service {
             cookieMap.put(cookie.substring(0, first), cookie.substring(first + 1, cookie.length()));
         }
 
-        String body = headers[headers.length - 1];
         //处理请求体
         Map<String, String> bodyMap = new HashMap<>();
         String bodyJson = "";
         if (contentType.contains("form")) {
             //提交方式为表单
             String decodeBody = URLDecoder.decode(body, "UTF-8");
-            String[] formArray = decodeBody.split("&");
-            for (String formItem : formArray) {
-                System.err.println(formItem.split("=")[0] + "       " + formItem.split("=")[1]);
-                String[] split = formItem.split("=");
-                bodyMap.put(split[0], split[1].replaceAll("\"", "\\\\\""));
+            if (!decodeBody.isEmpty() && !decodeBody.equals("")) {
+                String[] formArray = decodeBody.split("&");
+                for (String formItem : formArray) {
+                    String[] split = formItem.split("=");
+                    bodyMap.put(split[0], split.length == 1 ? "" : split[1].replaceAll("\"", "\\\\\""));
+                }
             }
 
         } else if (contentType.contains("json")) {
-            //提交方式为JSON
+            //提交方式为JSON提交方式为JSON
             System.err.println(URLDecoder.decode(body, "UTF-8"));
             String decodeBody = URLDecoder.decode(body, "UTF-8");
             bodyJson = decodeBody;
