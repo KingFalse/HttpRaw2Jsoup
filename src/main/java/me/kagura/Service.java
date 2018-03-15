@@ -49,10 +49,9 @@ public class Service {
                 body = headers[i + 1];
                 break;
             }
-            pattern = Pattern.compile("([\\d\\D]+):\\s?([\\d\\D]*)");
+            pattern = Pattern.compile("([\\d\\D]+):\\s+([\\d\\D]*)");
             matcher = pattern.matcher(header);
             matcher.find();
-            System.err.println(matcher.groupCount());
             String key = matcher.group(1);
             String val = "";
             try {
@@ -99,7 +98,6 @@ public class Service {
 
         } else if (contentType.contains("json")) {
             //提交方式为JSON提交方式为JSON
-            System.err.println(URLDecoder.decode(body, "UTF-8"));
             String decodeBody = URLDecoder.decode(body, "UTF-8");
             bodyJson = decodeBody;
 
