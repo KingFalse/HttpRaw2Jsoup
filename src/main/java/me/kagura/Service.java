@@ -29,7 +29,7 @@ public class Service {
 
         //解析出请求链接
         String absUrl = "";
-        Pattern pattern = Pattern.compile("\\s*" + method + " (http[\\d\\D]*) HTTP/\\d\\.?\\d?\\s");
+        Pattern pattern = Pattern.compile("\\s*" + method + " (http[\\d\\D]*)\\s{1}HTTP/\\d\\.?\\d?\\s");
 
         Matcher matcher = pattern.matcher(rawString);
         matcher.find();
@@ -49,11 +49,18 @@ public class Service {
                 body = headers[i + 1];
                 break;
             }
-            pattern = Pattern.compile("([\\d\\D]+): ([\\d\\D]+)");
+            pattern = Pattern.compile("([\\d\\D]+):\\s?([\\d\\D]*)");
             matcher = pattern.matcher(header);
             matcher.find();
+            System.err.println(matcher.groupCount());
             String key = matcher.group(1);
-            String val = matcher.group(2);
+            String val = "";
+            try {
+                val = matcher.group(2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             if (key.equals("Cookie")) {
                 cookiesStr = val;
                 continue;
