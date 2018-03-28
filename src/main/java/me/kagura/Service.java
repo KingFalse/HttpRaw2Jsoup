@@ -133,6 +133,7 @@ public class Service {
             //JSON方式
             generateCode = generateCode += String.format(".requestBody(\"%s\")", bodyJson.replaceAll("\"", "\\\\\"")) + System.lineSeparator();
         }
+        generateCode = generateCode += ".validateTLSCertificates(false)" + System.lineSeparator();
         generateCode = generateCode += ".ignoreContentType(true)" + System.lineSeparator();
         generateCode = generateCode += ".execute();" + System.lineSeparator();
         generateCode = generateCode += "\t//获取返回的原始body (字符串)" + System.lineSeparator();
