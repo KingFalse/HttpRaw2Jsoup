@@ -6,5 +6,7 @@
 #### 下载[HttpRaw2Jsoup-1.4.jar](https://github.com/KingFalse/HttpRaw2Jsoup/releases/download/v1.4/HttpRaw2Jsoup-1.4.jar)，双击运行即可使用
 ### Fiddler中如何找到原始http请求:
 ![](screenshots/2.png)
+### Charles中如何找到原始http请求:
+![](screenshots/3.png)
 ### 示例截图：
 ![](screenshots/1.png)
