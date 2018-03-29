@@ -29,7 +29,7 @@ public class Service {
 
         //解析出请求链接
         String absUrl = "";
-        Pattern pattern = Pattern.compile("\\s*" + method + " (http[\\d\\D]*)\\s{1}HTTP/\\d\\.?\\d?\\s");
+        Pattern pattern = Pattern.compile("\\s*" + method + " ([\\d\\D]*) HTTP/\\d\\.?\\d?\\s");
 
         Matcher matcher = pattern.matcher(rawString);
         matcher.find();
