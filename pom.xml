@@ -4,7 +4,7 @@
 
     <groupId>me.kagura</groupId>
     <artifactId>HttpRaw2Jsoup</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
     <build>
         <plugins>
             <plugin>
