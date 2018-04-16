@@ -72,6 +72,7 @@ public class Service {
         }
 
         //处理Cookie
+        cookiesStr = URLDecoder.decode(cookiesStr,"UTF-8");
         String[] cookiesArray = cookiesStr.split(";");
         Map<String, String> cookieMap = new HashMap<>();
         for (String cookie : cookiesArray) {
